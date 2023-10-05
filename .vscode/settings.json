@@ -1,0 +1,17 @@
+{
+   "workbench.colorCustomizations": {
+      "activityBar.background": "#013145",
+      "titleBar.activeBackground": "#014560",
+      "titleBar.activeForeground": "#F2FBFF"
+   },
+   "files.associations": {
+      "*.embeddedhtml": "html",
+      "*.gql": "graphql",
+      "*.js": "javascriptreact",
+      "*.tsx": "typescriptreact",
+      "*.tp": "json",
+      "*.css": "tailwindcss",
+      "var.h": "c",
+      "functions.h": "c"
+   }
+}
