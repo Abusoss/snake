@@ -1,4 +1,5 @@
 #include "var.h"
+#include "Serpent.h"
 
 // ----------------- INITIALISATION -----------------
 void initialisation()
@@ -7,25 +8,8 @@ void initialisation()
    printf("hauteur : %zu\n", sizeof(game.map) / sizeof(game.map.colonne[0]));
    printf("largeur: %zu\n", sizeof(game.map.colonne[0]) / sizeof(game.map.colonne[0].cellule[0]));
    pommeAdd();
+   addSerpent();
 }
-
-// ----------------- DECLARATION SNAKE -----------------
-
-// ----------------- DECLARATION MENU -----------------
-
-// ----------------- DECLARATION GAME -----------------
-
-// ----------------- DECLARATION SCORE -----------------
-
-// ----------------- DECLARATION OPTION -----------------
-
-// ----------------- DECLARATION SAVE -----------------
-
-// ----------------- DECLARATION LOAD -----------------
-
-// ----------------- DECLARATION EXIT -----------------
-
-// ----------------- DECLARATION HELP -----------------
 
 // ---------------- MAP -----------------
 void constructMap()
@@ -86,7 +70,7 @@ void printMap()
    {
       for (int l = 0; l < largeur; l++)
       {
-         printf("%s",game.map.colonne[c].cellule[l].type);
+         printf("%s", game.map.colonne[c].cellule[l].type);
          // if (l == 0 || l == largeur - 1)
          // {
          //    switch (game.map.colonne[c].cellule[l].type[0])
@@ -170,6 +154,7 @@ void pommeAdd()
 // }
 
 void pommePositionGenerator(struct Position allPos[3], int count)
+
 {
    struct Position unePos = {0, 0};
    do
@@ -190,3 +175,6 @@ void pommePositionGenerator(struct Position allPos[3], int count)
 
    allPos[count] = unePos;
 }
+
+// ---------------- SERPENT -----------------
+

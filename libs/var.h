@@ -12,7 +12,10 @@ enum
     goldenPommeChance = 20,
     goldenNumber = goldenPommeChance/2,
     pommeNumber = 3
-}; // hauteur et largeur de la map les enum peuvent etre util pour declarer plusieurs variables(constantes)
+};
+ // hauteur et largeur de la map les enum peuvent etre util pour declarer plusieurs variables(constantes)
+ 
+ 
 struct Position
 {
     int x;
@@ -31,13 +34,27 @@ struct Map
 {
     struct Colonne colonne[hauteur];
 };
+struct Serpent
+ {
+    struct Cellule tete;
+    struct Cellule corps[];
+    enum direction 
+    {
+        HAUT,BAS,GAUCHE,DROITE
+    };
+    
+    
+ };
 struct Game
 {
       struct Map map;
       int currentPommes;
+      struct Serpent serpent;
 };
 extern struct Game game;
 extern char composants[6];
+
+
 // ---------------- DECLARATION MAP -----------------
 void constructMap();
 void printMap();
@@ -46,5 +63,8 @@ void printMap();
 void pommeAdd();
 void pommePositionGenerator(struct Position allPos[3], int count);
 
+// ----------------- DECLARATION SERPENT -----------------
+void serpentPositionGenerator(struct Position pos);
+void addSerpent();
 // ----------------- DECLARATION INITIALISATION -----------------
 void initialisation();
