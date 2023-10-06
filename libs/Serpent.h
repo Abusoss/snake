@@ -1,16 +1,18 @@
 
 void addSerpent()
 {
-    struct Position pos = {0,0};
-    serpentPositionGenerator(pos);
+    struct Position pos = {};
+    pos = serpentPositionGenerator();
     strcpy(game.map.colonne[pos.y].cellule[pos.x].type, "S");
 }
-void serpentPositionGenerator(struct Position pos)
+struct Position serpentPositionGenerator()
 {
+    struct Position unePos = {0, 0};
     do
     {
-        pos.x = rand() % largeur;
-        pos.y = rand() % hauteur;
-    } while (game.map.colonne[pos.y].cellule[pos.x].type[0] != 'v');
+        unePos.x = rand() % largeur;
+        unePos.y = rand() % hauteur;
+    } while (game.map.colonne[unePos.y].cellule[unePos.x].type[0] != 'v');
     // printf("x:%d,y:%d", pos.x,pos.y);
+    return unePos;
 }

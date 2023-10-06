@@ -70,41 +70,44 @@ void printMap()
    {
       for (int l = 0; l < largeur; l++)
       {
-         printf("%s", game.map.colonne[c].cellule[l].type);
-         // if (l == 0 || l == largeur - 1)
-         // {
-         //    switch (game.map.colonne[c].cellule[l].type[0])
-         //    {
-         //    case 'm':
-         //       printf("%c", composants[3]);
-         //       break;
-         //    default:
-         //       break;
-         //    }
-         // }
-         // else
-         // {
-         //    switch (game.map.colonne[c].cellule[l].type[0])
-         //    {
-         //    case 'm':
-         //       printf("%c", composants[4]);
-         //       break;
-         //    case 'v':
-         //       printf("%c", composants[2]);
-         //       break;
-         //    case 's':
-         //       printf("%c", composants[5]);
-         //       break;
-         //    case 'p':
-         //       printf("%c", composants[0]);
-         //       break;
-         //    case 'P':
-         //       printf("%c", composants[1]);
-         //       break;
-         //    default:
-         //       break;
-         //    }
-         // }
+         // printf("%s", game.map.colonne[c].cellule[l].type);
+         if (l == 0 || l == largeur - 1)
+         {
+            switch (game.map.colonne[c].cellule[l].type[0])
+            {
+            case 'm':
+               printf("%c", composants[3]);
+               break;
+            default:
+               break;
+            }
+         }
+         else
+         {
+            switch (game.map.colonne[c].cellule[l].type[0])
+            {
+            case 'm':
+               printf("%c", composants[4]);
+               break;
+            case 'v':
+               printf("%c", composants[2]);
+               break;
+            case 's':
+               printf("%c", composants[5]);
+               break;
+            case 'S':
+               printf("%c", composants[5]);
+               break;
+            case 'p':
+               printf("%c", composants[0]);
+               break;
+            case 'P':
+               printf("%c", composants[1]);
+               break;
+            default:
+               break;
+            }
+         }
       }
       printf("\n");
    }
@@ -113,8 +116,6 @@ void printMap()
 // ---------------- POMME -----------------
 void pommeAdd()
 {
-   int x;
-   int y;
    int count = 0;
    struct Position allPos[pommeNumber] = {};
    int goldenPomme;
@@ -177,4 +178,3 @@ void pommePositionGenerator(struct Position allPos[3], int count)
 }
 
 // ---------------- SERPENT -----------------
-
