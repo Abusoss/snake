@@ -5,10 +5,10 @@ void initialisation()
    printf("hauteur : %zu\n", sizeof(game.map) / sizeof(game.map.colonne[0]));
    printf("largeur: %zu\n", sizeof(game.map.colonne[0]) / sizeof(game.map.colonne[0].cellule[0]));
    game.config.vitesse = vitesse;
-   game.config.difficulte[difficulte-1] = 1;
-   game.config.mode[mode-1] = 1;
-   game.config.musique[musique-1] = 1;
-   game.config.taille[taille-1] = 1;
+   game.config.difficulte[difficulte - 1] = 1;
+   game.config.mode[mode - 1] = 1;
+   game.config.musique[musique - 1] = 1;
+   game.config.taille[taille - 1] = 1;
    constructMap();
    menu();
 }
@@ -38,27 +38,27 @@ void constructMap()
    {
       game.map.colonne[c].cellule[0].pos.x = 0;
       game.map.colonne[c].cellule[0].pos.y = c;
-      strcpy_s(game.map.colonne[c].cellule[0].type,8, "m");
+      strcpy_s(game.map.colonne[c].cellule[0].type, 8, "m");
       game.map.colonne[c].cellule[largeur - 1].pos.x = largeur - 1;
       game.map.colonne[c].cellule[largeur - 1].pos.y = c;
-      strcpy_s(game.map.colonne[c].cellule[largeur - 1].type,8, "m");
+      strcpy_s(game.map.colonne[c].cellule[largeur - 1].type, 8, "m");
 
       for (int l = 1; l < largeur - 1; l++)
       {
          game.map.colonne[c].cellule[l].pos.x = l;
          game.map.colonne[c].cellule[l].pos.y = c;
-         strcpy_s(game.map.colonne[c].cellule[l].type,8, "v");
+         strcpy_s(game.map.colonne[c].cellule[l].type, 8, "v");
       }
    }
    for (int l = 0; l < largeur; l++)
    {
       game.map.colonne[0].cellule[l].pos.x = l;
       game.map.colonne[0].cellule[l].pos.y = 0;
-      strcpy_s(game.map.colonne[0].cellule[l].type,8, "m");
+      strcpy_s(game.map.colonne[0].cellule[l].type, 8, "m");
 
       game.map.colonne[hauteur - 1].cellule[l].pos.x = l;
       game.map.colonne[hauteur - 1].cellule[l].pos.y = hauteur - 1;
-      strcpy_s(game.map.colonne[hauteur - 1].cellule[l].type,8, "m");
+      strcpy_s(game.map.colonne[hauteur - 1].cellule[l].type, 8, "m");
    }
 }
 // struct Map modifyMap(struct Map arg, int x, int y, char type)
@@ -111,7 +111,7 @@ void printMap()
                printf("%c", composants[4]);
                break;
             case 'v':
-         printf("%c", composants[2]);
+               printf("%c", composants[2]);
                break;
             case 's':
                printf("%c", composants[5]);

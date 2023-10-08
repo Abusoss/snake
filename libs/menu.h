@@ -4,41 +4,40 @@ void menu()
    int choix = 0;
    int option = jouer;
    int subOption = jouer;
-   int ch;
+   boolean selected = FALSE;
    do
    {
       // pommeAdd();
       do
       {
-      clear_screen();
-      printMap();
-      printf("%d\n",option);
-      menuGenerator(&option);
-       ch = move("menu", &option);
-      } while (ch != 13);
+         clear_screen();
+         printMap();
+         // printf("%d\n", option);
+         menuGenerator(&option);
+         move("menu", &option, &selected);
+         printf("%d\n", selected);
+      } while (selected == 0);
+      choix = option;
 
+      printf("choix : %d\n", choix);
       switch (choix)
       {
-      case 1:
+      case 0:
 
+         break;
+      case 1:
+         /* code */
          break;
       case 2:
-         /* code */
-         break;
-      case 3:
          exit(0);
          /* code */
-         break;
-
-      default:
-         choix = option;
          break;
       }
       // array 3 position
       // position par defaut 0 = number
       // move increase or decrease(if not 0) number
       // when press enter and number = 0 jouer else if number = 1 options else if number = 2 quitter
-   } while (choix != 3);
+   } while (choix != 2);
 }
 
 // ----------------- MENUGENERATOR -----------------
@@ -53,7 +52,7 @@ void menuGenerator(int *option)
       {
          if (*option == i)
          {
-            size = strlen(menuTitle[i])-1;
+            size = strlen(menuTitle[i]) - 1;
 
             for (int s = 0; s < size; s++)
             {
@@ -75,7 +74,7 @@ void menuGenerator(int *option)
    {
       for (size_t i = (sizeof(menuTitle) / sizeof(menuTitle[0])) - 6; i < sizeof(menuTitle) / sizeof(menuTitle[0]); i++)
       {
-         size = strlen(menuTitle[i])-1;
+         size = strlen(menuTitle[i]) - 1;
          for (int s = 0; s < size; s++)
          {
             strcpy(underline, "--------------");

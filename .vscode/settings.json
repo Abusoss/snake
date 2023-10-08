@@ -32,6 +32,8 @@
       "numeric": "c",
       "stop_token": "c",
       "streambuf": "c",
-      "thread": "c"
+      "thread": "c",
+      "istream": "c",
+      "stdio.h": "c"
    }
 }

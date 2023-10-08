@@ -52,7 +52,7 @@ void initialisation();
 void menu();
 void menuGenerator(int *option);
 // ----------------- DECLARATION MOVE -----------------
-int move(char type[], int *arg);
+void move(char type[], int *arg, boolean *state);
 
 // ----------------- DECLARATION CLEAR -----------------
 void clear_screen ( void );
