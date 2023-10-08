@@ -1,4 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <windows.h>
+// #include <threads.h>
+// #include <curses.h>
+#if __linux__
+#include <ncurses.h>
+#elif __APPLE__
+#elif _WIN32
+#include <conio.h>
+#endif
+#include "./libs/config.h"
+#include "./libs/var.h"
+#include "./libs/clear.h"
 #include "./libs/functions.h"
+#include "./libs/menu.h"
+#include "./libs/move.h"
 char composants[6] = {'X', '#', ' ', '|', '-', 'O'};
 struct Game game = {0};
 
@@ -27,10 +45,9 @@ int main()
 
 // [[]]
 // [[]]
-    constructMap();
     // printf("%s", init.ligne[5].cellule[5].type);
     // printf("\n");
+    clear_screen();
     initialisation();
-    printMap();
     return 0;
 }

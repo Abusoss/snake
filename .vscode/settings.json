@@ -1,9 +1,4 @@
 {
-   "workbench.colorCustomizations": {
-      "activityBar.background": "#013145",
-      "titleBar.activeBackground": "#014560",
-      "titleBar.activeForeground": "#F2FBFF"
-   },
    "files.associations": {
       "*.embeddedhtml": "html",
       "*.gql": "graphql",
@@ -12,6 +7,31 @@
       "*.tp": "json",
       "*.css": "tailwindcss",
       "var.h": "c",
-      "functions.h": "c"
+      "functions.h": "c",
+      "conio.h": "c",
+      "array": "c",
+      "chrono": "c",
+      "compare": "c",
+      "functional": "c",
+      "ostream": "c",
+      "ranges": "c",
+      "ratio": "c",
+      "tuple": "c",
+      "type_traits": "c",
+      "utility": "c",
+      "random": "c",
+      "*.tcc": "c",
+      "deque": "c",
+      "string": "c",
+      "unordered_map": "c",
+      "vector": "c",
+      "iterator": "c",
+      "memory_resource": "c",
+      "optional": "c",
+      "memory": "c",
+      "numeric": "c",
+      "stop_token": "c",
+      "streambuf": "c",
+      "thread": "c"
    }
 }

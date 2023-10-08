@@ -1,12 +1,16 @@
-#include "var.h"
-
 // ----------------- INITIALISATION -----------------
 void initialisation()
 {
-   printf("Map initialiser\n");
+   printf("Map initialisation\n");
    printf("hauteur : %zu\n", sizeof(game.map) / sizeof(game.map.colonne[0]));
    printf("largeur: %zu\n", sizeof(game.map.colonne[0]) / sizeof(game.map.colonne[0].cellule[0]));
-   pommeAdd();
+   game.config.vitesse = vitesse;
+   game.config.difficulte[difficulte-1] = 1;
+   game.config.mode[mode-1] = 1;
+   game.config.musique[musique-1] = 1;
+   game.config.taille[taille-1] = 1;
+   constructMap();
+   menu();
 }
 
 // ----------------- DECLARATION SNAKE -----------------
@@ -34,27 +38,27 @@ void constructMap()
    {
       game.map.colonne[c].cellule[0].pos.x = 0;
       game.map.colonne[c].cellule[0].pos.y = c;
-      strcpy(game.map.colonne[c].cellule[0].type, "m");
+      strcpy_s(game.map.colonne[c].cellule[0].type,8, "m");
       game.map.colonne[c].cellule[largeur - 1].pos.x = largeur - 1;
       game.map.colonne[c].cellule[largeur - 1].pos.y = c;
-      strcpy(game.map.colonne[c].cellule[largeur - 1].type, "m");
+      strcpy_s(game.map.colonne[c].cellule[largeur - 1].type,8, "m");
 
       for (int l = 1; l < largeur - 1; l++)
       {
          game.map.colonne[c].cellule[l].pos.x = l;
          game.map.colonne[c].cellule[l].pos.y = c;
-         strcpy(game.map.colonne[c].cellule[l].type, "v");
+         strcpy_s(game.map.colonne[c].cellule[l].type,8, "v");
       }
    }
    for (int l = 0; l < largeur; l++)
    {
       game.map.colonne[0].cellule[l].pos.x = l;
       game.map.colonne[0].cellule[l].pos.y = 0;
-      strcpy(game.map.colonne[0].cellule[l].type, "m");
+      strcpy_s(game.map.colonne[0].cellule[l].type,8, "m");
 
       game.map.colonne[hauteur - 1].cellule[l].pos.x = l;
       game.map.colonne[hauteur - 1].cellule[l].pos.y = hauteur - 1;
-      strcpy(game.map.colonne[hauteur - 1].cellule[l].type, "m");
+      strcpy_s(game.map.colonne[hauteur - 1].cellule[l].type,8, "m");
    }
 }
 // struct Map modifyMap(struct Map arg, int x, int y, char type)
@@ -86,41 +90,42 @@ void printMap()
    {
       for (int l = 0; l < largeur; l++)
       {
-         printf("%s",game.map.colonne[c].cellule[l].type);
-         // if (l == 0 || l == largeur - 1)
-         // {
-         //    switch (game.map.colonne[c].cellule[l].type[0])
-         //    {
-         //    case 'm':
-         //       printf("%c", composants[3]);
-         //       break;
-         //    default:
-         //       break;
-         //    }
-         // }
-         // else
-         // {
-         //    switch (game.map.colonne[c].cellule[l].type[0])
-         //    {
-         //    case 'm':
-         //       printf("%c", composants[4]);
-         //       break;
-         //    case 'v':
-         //       printf("%c", composants[2]);
-         //       break;
-         //    case 's':
-         //       printf("%c", composants[5]);
-         //       break;
-         //    case 'p':
-         //       printf("%c", composants[0]);
-         //       break;
-         //    case 'P':
-         //       printf("%c", composants[1]);
-         //       break;
-         //    default:
-         //       break;
-         //    }
-         // }
+         // printf("%s",game.map.colonne[c].cellule[l].type);
+
+         if (l == 0 || l == largeur - 1)
+         {
+            switch (game.map.colonne[c].cellule[l].type[0])
+            {
+            case 'm':
+               printf("%c", composants[3]);
+               break;
+            default:
+               break;
+            }
+         }
+         else
+         {
+            switch (game.map.colonne[c].cellule[l].type[0])
+            {
+            case 'm':
+               printf("%c", composants[4]);
+               break;
+            case 'v':
+         printf("%c", composants[2]);
+               break;
+            case 's':
+               printf("%c", composants[5]);
+               break;
+            case 'p':
+               printf("%c", composants[0]);
+               break;
+            case 'P':
+               printf("%c", composants[1]);
+               break;
+            default:
+               break;
+            }
+         }
       }
       printf("\n");
    }
