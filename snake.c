@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <wchar.h>
 #include <time.h>
+#include <locale.h>
 #include <windows.h>
 #if __linux__
 #include <ncurses.h>
@@ -14,15 +16,20 @@
 #include "./src/config.h"
 #include "./src/declar.h"
 #include "./src/window.h"
+#include "./src/utils.h"
+#include "./src/list.h"
 #include "./src/functions.h"
 #include "./src/affichage.h"
 #include "./src/actions.h"
 #include "./src/splashScreen.h"
 #include "./src/start.h"
 #include "./src/menu.h"
-struct Game game = {0};
+#include "./src/game.h"
+#include "./src/serpend.h"
+Game game = {0};
 int main(int argc, char *argv[])
 {
+    setlocale(LC_CTYPE, "");
     SDL_Init(SDL_INIT_EVERYTHING);
 
     // ---------------- Init window
@@ -51,7 +58,10 @@ int main(int argc, char *argv[])
     //     // affichage();
     //     // SDL_Delay(500); // Pause for 2 seconds
     // }
+
+
     printf("fonctionne : %d\n", fonctionne);
+    supprimerList(game.serpent);
     quitterWindow(render, police, window);
     return EXIT_SUCCESS;
 }

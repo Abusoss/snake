@@ -1,6 +1,6 @@
 void SplashScreen(SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
 {
-   police = TTF_OpenFont("./police.ttf", 150); // this opens a font style and sets a size
+   police = TTF_OpenFont("./police.ttf", taillePoliceSplash); // this opens a font style and sets a size
    if (police == NULL)
    {
       printf("police : %s\n", SDL_GetError());
@@ -48,8 +48,7 @@ void SplashScreen(SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
          SDL_Delay(3000);
          delay = TRUE;
       }
-      SDL_Delay(5);
-      alpha -= 1;
+      alpha -= 5;
       /* code */
    }
    TTF_CloseFont(police);

@@ -6,12 +6,16 @@ void initialisation(SDL_Renderer *render)
    printf("Map initialisation\n");
    printf("hauteur : %zu\n", sizeof(game.map) / sizeof(game.map.colonne[0]));
    printf("largeur: %zu\n", sizeof(game.map.colonne[0]) / sizeof(game.map.colonne[0].cellule[0]));
+   game.gameState = 1;
+   game.currentPommes = 0;
    game.config.vitesse = vitesse;
    game.config.difficulte[difficulte - 1] = 1;
    game.config.mode[mode - 1] = 1;
    game.config.musique[musique - 1] = 1;
    game.config.taille[taille - 1] = 1;
    constructMap();
+   List *serpent = creeList();
+   game.serpent = serpent;
 }
 
 // ----------------- DECLARATION SNAKE -----------------
@@ -84,53 +88,6 @@ void constructMap()
 //       }
 //    }
 // }
-
-void printMap()
-{
-   for (int c = 0; c < hauteur; c++)
-   {
-      for (int l = 0; l < largeur; l++)
-      {
-         // printf("%s",game.map.colonne[c].cellule[l].type);
-
-         if (l == 0 || l == largeur - 1)
-         {
-            switch (game.map.colonne[c].cellule[l].type[0])
-            {
-            case 'm':
-               printf("%c", composants[3]);
-               break;
-            default:
-               break;
-            }
-         }
-         else
-         {
-            switch (game.map.colonne[c].cellule[l].type[0])
-            {
-            case 'm':
-               printf("%c", composants[4]);
-               break;
-            case 'v':
-               printf("%c", composants[2]);
-               break;
-            case 's':
-               printf("%c", composants[5]);
-               break;
-            case 'p':
-               printf("%c", composants[0]);
-               break;
-            case 'P':
-               printf("%c", composants[1]);
-               break;
-            default:
-               break;
-            }
-         }
-      }
-      printf("\n");
-   }
-}
 
 // ---------------- POMME -----------------
 void pommeAdd()

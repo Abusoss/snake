@@ -1,36 +1,42 @@
 void menu(BOOLEAN *selected, BOOLEAN *change, char *mode, SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
 {
+   police = TTF_OpenFont("./police.ttf", taillePoliceMenu); // this opens a font style and sets a size
    int choix = 0;
-   int option = jouer;
    int subOption = jouer;
    // printMap();
    // printf("%d\n", option);
+   // printf("%s\n", change ? TRUE : FALSE);
    if (*change == TRUE)
    {
-      // printf("%d\n", change);
       if (game.direction == HAUT)
       {
-         if (option > 0)
+            printf("minus: %d\n", game.currentOption);
+         if (game.currentOption > 0)
          {
-            option--;
+            printf("minus: %d\n", game.currentOption);
+            game.currentOption--;
          }
       }
       else if (game.direction == BAS)
       {
-         if (option < 2)
+         printf("first: %d\n", game.currentOption);
+         if (game.currentOption < 2)
          {
-            option++;
+            printf("before: %d\n", game.currentOption);
+            game.currentOption++;
+            printf("after: %d\n", game.currentOption);
          }
       }
-      menuGenerator(&option, &change, render, police, window);
+      menuGenerator(render, police, window);
+      *change = FALSE;
       /* code */
    }
-   // move(menu, &option, &selected);
+   // move(menu, game.currentOption, &selected);
    // printf("%d\n", selected);
    if (*selected != FALSE)
    {
       /* code */
-      choix = option;
+      choix = game.currentOption;
       switch (choix)
       {
       case 0:
@@ -53,23 +59,23 @@ void menu(BOOLEAN *selected, BOOLEAN *change, char *mode, SDL_Renderer *render, 
 
 // ----------------- MENUGENERATOR -----------------
 
-void menuGenerator(int *option, BOOLEAN **change, SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
+void menuGenerator(SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
 {
-   Uint32 frameStart = SDL_GetTicks();
+   // Uint32 frameStart = SDL_GetTicks();
    SDL_SetRenderDrawColor(render, 30, 30, 30, 255); // clear the renderer to the draw color
    SDL_RenderClear(render);
    SDL_Color fontColor = {255, 255, 255, 255};
    SDL_Surface *surfaceMessage = NULL;
    SDL_Texture *Message = NULL;
    SDL_Rect Message_rect = {0, 0, 0, 0};
-   printf("%d\n", *option);
-   if (*option <= 2)
+   // printf("%d\n", game.currentOption);
+   if (game.currentOption <= 2)
    {
       for (size_t i = 0; i < (sizeof(menuTitle) / sizeof(menuTitle[0])) - 6; i++)
       {
          // SDL_SetRenderDrawColor(render, 30, 30, 30, 255); // clear the renderer to the draw color
          // SDL_RenderClear(render);
-         if (*option == i)
+         if (game.currentOption == i)
          {
             TTF_SetFontStyle(police, TTF_STYLE_UNDERLINE);
          }
@@ -112,12 +118,6 @@ void menuGenerator(int *option, BOOLEAN **change, SDL_Renderer *render, TTF_Font
       }
    }
    SDL_DestroyTexture(Message);
-   **change = FALSE;
-   Uint32 frameTime = SDL_GetTicks() - frameStart;
-   if (frameDelay > frameTime)
-   {
-      SDL_Delay(frameDelay - frameTime);
-   }
    /* code */
    // lstrlenA determine la longueur d'une chaîne de caractère
 }

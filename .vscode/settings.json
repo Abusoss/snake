@@ -18,6 +18,15 @@
       "menu.h": "c",
       "miseajour.h": "c",
       "splashscreen.h": "c",
-      "actions.h": "c"
-   }
+      "actions.h": "c",
+      "game.h": "c",
+      "serpend.h": "c"
+   },
+   "makefile.launchConfigurations": [
+      {
+         "cwd": "c:\\Users\\LMN\\Desktop\\brouillon dev\\snake",
+         "binaryPath": "c:\\Users\\LMN\\Desktop\\brouillon dev\\snake\\snake",
+         "binaryArgs": []
+      }
+   ]
 }

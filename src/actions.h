@@ -14,20 +14,24 @@ void actions(BOOLEAN *change, BOOLEAN *selected)
          fonctionne = FALSE;
          break;
       case SDLK_UP:
+         game.previousDirection = game.direction;
          game.direction = HAUT;
-         *change=TRUE;
+         *change = TRUE;
          break;
       case SDLK_DOWN:
+         game.previousDirection = game.direction;
          game.direction = BAS;
-         *change=TRUE;
+         *change = TRUE;
          break;
       case SDLK_LEFT:
+         game.previousDirection = game.direction;
          game.direction = GAUCHE;
-         *change=TRUE;
+         *change = TRUE;
          break;
       case SDLK_RIGHT:
+         game.previousDirection = game.direction;
          game.direction = DROITE;
-         *change=TRUE;
+         *change = TRUE;
          break;
       case SDLK_RETURN:
          *selected = TRUE;

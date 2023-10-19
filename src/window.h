@@ -29,6 +29,7 @@ int initWindow(SDL_Renderer *render,TTF_Font *police,SDL_Window *window)
 
 void quitterWindow(SDL_Renderer *render,TTF_Font *police,SDL_Window *window)
 {
+   // game.reverseSerpent = NULL;
    SDL_DestroyRenderer(render);
    SDL_DestroyWindow(window);
    TTF_CloseFont(police);
