@@ -24,7 +24,7 @@ enum gameConfig
     goldenPommeChance = 20,
     goldenNumber = goldenPommeChance / 2,
     pommeNumber = 3,
-    vitesse = 1,
+    vitesse = 250,
     mode = 1,
     son = 5,
     musique = 5,
@@ -46,7 +46,10 @@ enum options
 
 int windowFlag = SDL_WINDOW_ALLOW_HIGHDPI;
 int fonctionne = TRUE;
-Uint16 composants[7] = {0x0058, 0x0023, 0x0020, 0x25A1, 0x25A1, 0x2612, 0xE108};
+// 0x25A0
+// 0xE108
+// 0x2612
+Uint16 composants[7] = {0x0058, 0x0023, 0x0020, 0x25A1, 0x25A1, 0x25A0, 0x2612};
 char menuTitle[9][15] = {"1. Jouer", "2. Options", "3. Quitter", "4. Mode", "5. Vitesse", "6. Son", "7. Musique", "8. Difficulte", "9. Taille"};
 // extern enum gameConfig;
 // extern enum options;

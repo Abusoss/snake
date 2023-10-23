@@ -1,63 +1,59 @@
-void menu(BOOLEAN *selected, BOOLEAN *change, char *mode, SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
+void menu(SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
 {
    police = TTF_OpenFont("./police.ttf", taillePoliceMenu); // this opens a font style and sets a size
    int choix = 0;
    int subOption = jouer;
-   // printMap();
-   // printf("%d\n", option);
-   // printf("%s\n", change ? TRUE : FALSE);
-   if (*change == TRUE)
+   while (fonctionne && strcmp(game.gameState, "menu") == FALSE)
    {
-      if (game.direction == HAUT)
+      actions();
+      // printMap();
+      // printf("%d\n", option);
+      // printf("%s\n", change ? TRUE : FALSE);
+      if (game.isChange == TRUE && game.selected == FALSE)
       {
-            printf("minus: %d\n", game.currentOption);
-         if (game.currentOption > 0)
+         if (game.direction == HAUT)
          {
-            printf("minus: %d\n", game.currentOption);
-            game.currentOption--;
+            if (game.currentOption > 0)
+            {
+               game.currentOption = game.currentOption - 1;
+            }
+         }
+         else if (game.direction == BAS)
+         {
+            if (game.currentOption < 2)
+            {
+               game.currentOption = game.currentOption + 1;
+            }
+         }
+         menuGenerator(render, police, window);
+         game.isChange = FALSE;
+         /* code */
+      }
+      // move(menu, game.currentOption, &selected);
+      // printf("%d\n", selected);
+      if (game.selected != FALSE)
+      {
+         /* code */
+         choix = game.currentOption;
+         switch (choix)
+         {
+         case 0:
+            strcpy_s(game.gameState, 100, "game");
+            break;
+         case 1:
+            strcpy_s(game.gameState, 100, "options");
+            /* code */
+            break;
+         case 2:
+            fonctionne = FALSE;
+            // quitterWindow(render, police, window);
+            /* code */
+            break;
          }
       }
-      else if (game.direction == BAS)
-      {
-         printf("first: %d\n", game.currentOption);
-         if (game.currentOption < 2)
-         {
-            printf("before: %d\n", game.currentOption);
-            game.currentOption++;
-            printf("after: %d\n", game.currentOption);
-         }
-      }
-      menuGenerator(render, police, window);
-      *change = FALSE;
       /* code */
-   }
-   // move(menu, game.currentOption, &selected);
-   // printf("%d\n", selected);
-   if (*selected != FALSE)
-   {
-      /* code */
-      choix = game.currentOption;
-      switch (choix)
-      {
-      case 0:
-         strcpy(mode, "game");
-         break;
-      case 1:
-         /* code */
-         break;
-      case 2:
-         printf("%d\n", fonctionne);
-         printf("quitter\n");
-         fonctionne = FALSE;
-         printf("%d\n", fonctionne);
-         // quitterWindow(render, police, window);
-         /* code */
-         break;
-      }
    }
 }
-
-// ----------------- MENUGENERATOR -----------------
 
 void menuGenerator(SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
 {
@@ -101,12 +97,14 @@ void menuGenerator(SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
          Message_rect.x = (windowWidth / 2) - (surfaceMessage->w / 2);                                    // controls the rect's x coordinate
          Message_rect.y = windowHeight / 2 - (surfaceMessage->h * 3) / 2 + i * surfaceMessage->h + i * 1; // controls the rect's y coordinte
          Message_rect.w = surfaceMessage->w;                                                              // controls the width of the rect
-         Message_rect.h = surfaceMessage->h;                          // controls the height of the rect
+         Message_rect.h = surfaceMessage->h;                                                              // controls the height of the rect
          // printf("largeur : %d\n", surfaceMessage->w);
          // printf("hauteur : %d\n", Message_rect.h);
          // Message_rect.w = surfaceMessage->w;  // controls the width of the rect
          // Message_rect.h = surfaceMessage->h;  // controls the height of the rect
          SDL_RenderCopy(render, Message, NULL, &Message_rect);
+         SDL_DestroyTexture(Message);
+         SDL_FreeSurface(surfaceMessage);
       }
       SDL_RenderPresent(render);
    }

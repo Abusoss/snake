@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include <time.h>
+#include <math.h>
 #include <locale.h>
 #include <windows.h>
 #if __linux__
@@ -24,6 +25,7 @@
 #include "./src/splashScreen.h"
 #include "./src/start.h"
 #include "./src/menu.h"
+#include "./src/pomme.h"
 #include "./src/game.h"
 #include "./src/serpend.h"
 Game game = {0};
@@ -33,7 +35,7 @@ int main(int argc, char *argv[])
     SDL_Init(SDL_INIT_EVERYTHING);
 
     // ---------------- Init window
-    SDL_Window *window = SDL_CreateWindow("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, 0);
+    SDL_Window *window = SDL_CreateWindow("Snake", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, 0);
     if (window == NULL){printf("Could not create window: %s\n", SDL_GetError());fonctionne = FALSE;}
     printf("Window created !!!\n");
 
@@ -49,7 +51,8 @@ int main(int argc, char *argv[])
     // printf("fonctionne : %d\n", fonctionne);
     initialisation(render);
     // affichage();
-    SplashScreen(render, police, window);
+    char *title = "SNAKE";
+    SplashScreen(render, police, window, title);
     start(render, police, window);
     // while (fonctionne)
     // {
