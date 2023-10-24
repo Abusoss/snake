@@ -2,22 +2,22 @@ typedef struct Position
 {
     int x;
     int y;
-}Position; // Les struc servent a structurer la donnee et a derirre resteindre les valeurs possible
+} Position; // Les struc servent a structurer la donnee et a derirre resteindre les valeurs possible
 typedef struct Cellule
 {
-    SDL_Surface* surface;
-    SDL_Texture* texture;
-    char type[2];        // type est a tableau de char de taille 2 pas plus pas moins
+    SDL_Surface *surface;
+    SDL_Texture *texture;
+    char type[2]; // type est a tableau de char de taille 2 pas plus pas moins
     Position pos; // pos est a tableau qui a pour type la structure Position donc tableau[2] avec un x int et un y int
-}Cellule;
+} Cellule;
 typedef struct Colonne
 {
     Cellule cellule[largeur]; //
-}Colonne;
+} Colonne;
 typedef struct Map
 {
     Colonne colonne[hauteur];
-}Map;
+} Map;
 typedef struct Config
 {
     int hauteur;
@@ -27,35 +27,50 @@ typedef struct Config
     int son[5];
     int musique[5];
     int taille[3];
-    int difficulte[3];
-}Config;
+    int difficulte;
+} Config;
 
 #ifndef __List_H__
 #define __List_H__
-typedef struct List_type{
+typedef struct List_type
+{
     Cellule *cellule;
     // TODO: Ajouter SDL_Texture* texture pour chaque cellule ou avoir un poiteur vers une cellule de map et ajouter une SDL_Texture* texture dans le struct Cellule
     struct List_type *suivant;
     struct List_type *precedent;
-}List, Cell;
+} List, Cell;
 #endif
+
+typedef struct Playeur{
+    char name[20];
+    int score;
+}Playeur;
 
 typedef struct Game
 {
     int currentPommes;
     char gameState[10];
+    BOOLEAN gameStart;
     int score;
-    int previousDirection;
+    int previousGameDirection;
     int direction;
     int currentOption;
+    Playeur playeur;
+    Playeur bestPlayeur;
     BOOLEAN isChange;
     BOOLEAN selected;
     BOOLEAN scanner[4];
+    SDL_Renderer *render;
+    TTF_Font *police;
+    SDL_Window *window;
     List *serpent;
+    int choix;
+    int subOption;
     List *reverseSerpent;
     Config config;
+    SDL_Event action;
     Map map;
-}Game;
+} Game;
 extern Game game;
 extern Uint16 composants[7];
 
@@ -75,9 +90,9 @@ void pommePositionGenerator(Position allPos[3], int count);
  * \param taille La taille de la carte.
  * \param game L'objet de jeu contenant les informations de jeu.
  */
-void initialisation(SDL_Renderer *render);
-
-void reinitialization();
+void initialisation(void);
+void restart(void);
+void reinitialization(void);
 
 /**
  * @brief Construit la carte de jeu en initialisant les cellules avec leurs positions et types.
@@ -98,7 +113,7 @@ void constructMap();
  * @param window La fenêtre SDL pour afficher le jeu.
  * @note Cette fonction utilise les fonctions menu(), gameStart() et actions() pour gérer les différents modes et les actions du joueur.
  */
-void start(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
+void start(void);
 
 /**
  * @attention Cette fonction gère le menu principal du jeu. Elle prend en charge l'affichage du menu, la sélection des options et la gestion des événements de l'utilisateur.
@@ -116,7 +131,7 @@ void start(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
  * @note Lorsqu'une option de menu est sélectionnée, la variable `*selected` doit être définie sur TRUE et le mode de jeu sélectionné doit être stocké dans la variable `*mode`.
  * @note Cette fonction ne retourne aucune valeur.
  */
-void menu(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
+void menu(void);
 
 /**
  * @brief Génère le menu principal du jeu.
@@ -130,7 +145,7 @@ void menu(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
  * @note Cette fonction utilise la variable globale game.currentOption pour déterminer l'option sélectionnée.
  *
  */
-void menuGenerator(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
+void menuGenerator(void);
 
 /**
  * @attention Cette fonction démarre le jeu Snake en initialisant les paramètres nécessaires.
@@ -139,7 +154,7 @@ void menuGenerator(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
  * @param window La fenêtre SDL dans laquelle le jeu est affiché.
  * @note Cette fonction ajoute un serpent, le fait grandir et génère le jeu. Elle utilise une boucle while pour continuer le jeu jusqu'à ce que le joueur perde.
  */
-void gameStart(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
+void gameFn(void);
 
 /**
  * @attention Cette fonction génère le jeu en initialisant la couleur de rendu, en nettoyant le rendu, en initialisant la couleur de la police, en initialisant la position, en initialisant la direction du jeu et en bouclant sur la hauteur et la largeur de la carte pour afficher les différents composants du jeu.
@@ -150,7 +165,7 @@ void gameStart(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
  *
  * @note Cette fonction utilise les variables globales suivantes : game, hauteur, largeur, composants.
  */
-void gameGenerator(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
+void gameGenerator(void);
 
 /**
  * @brief Affiche un texte à l'écran à une position donnée.
@@ -168,7 +183,7 @@ void gameGenerator(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
  *
  * @note La fonction modifie les paramètres surfaceMessage, Message et Message_rect.
  */
-void renderComponent(Position pos, Uint16 text, TTF_Font *police, SDL_Color fontColor, SDL_Renderer *render, SDL_Surface *surfaceMessage, SDL_Texture *Message, SDL_Rect Message_rect);
+void renderComponent(Position pos, Uint16 text, SDL_Color fontColor, SDL_Surface *surfaceMessage, SDL_Texture *Message, SDL_Rect Message_rect);
 
 // ----------------- DECLARATION SERPEND -----------------
 void addSerpend(void);
@@ -176,28 +191,28 @@ void growSerpend(void);
 void removeQueueSerpend();
 void serpendPositionGenerator(Position *pos);
 void moveSerpend();
-void scanSerpend(int range, int begin, Position pos);
+int scanSerpend(int range, Position pos);
 void verifySerpend(int newX, int newY);
 
 // ----------------- DECLARATION ACTIONS -----------------
-void actions();
+void actions(void);
+// ----------------- DECLARATION SCORE -----------------
+void score(void);
 
 // ----------------- DECLARATION WINDOW -----------------
-int initWindow(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
-void quitterWindow(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
+void initWindow(void);
+void quitterWindow();
 
 // ----------------- DECLARATION SPLASH SCREEN -----------------
-void SplashScreen(SDL_Renderer *render, TTF_Font *police, SDL_Window *window, char *text);
+void SplashScreen(char *text);
 // ----------------- DECLARATION AFFICHAGE -----------------
 void affichage(SDL_Renderer *render, TTF_Font *police, SDL_Window *window);
-// ----------------- DECLARATION MISE A JOUR -----------------
-void miseAJour(void);
-
-
+// ----------------- DECLARATION SAVE -----------------
+void saveScore(void);
+void lireScore(void);
 
 // ----------------- DECLARATION UTILS -----------------
 BOOLEAN str_to_uint16(const char *str, Uint16 *res);
-
 
 // ----------------- DECLARATION FONCTION DE LIST CHAÎNÉE -----------------
 #ifndef __List_H__

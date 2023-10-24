@@ -1,40 +1,33 @@
-void start(SDL_Renderer *render, TTF_Font *police, SDL_Window *window)
+void start(void)
 {
-   game.isChange = TRUE;
-   BOOLEAN selected = FALSE;
-   int option = jouer;
    while (fonctionne)
    {
       actions();
       if (strcmp(game.gameState, "menu") == FALSE)
       {
-         // do something
-         menu( render, police, window);
+         menu();
       }
       else if (strcmp(game.gameState, "game") == FALSE)
       {
-         // do something else
-
-         gameStart(render, police,window);
-         // gameGenerator(&change, render, police, window);
-      }else if(strcmp(game.gameState, "gameover") == FALSE){
+         gameFn();
+         actions();
+      }
+      else if (strcmp(game.gameState, "gameover") == FALSE)
+      {
          supprimerList(game.serpent);
-         char *title = "GAME OVER";
-         SplashScreen(render, police, window, title);
-         initialisation(render);
+         SplashScreen("GAME OVER");
+         TTF_CloseFont(game.police);
+         game.police = NULL;
+         saveScore();
+         initialisation();
       }
       else if (strcmp(game.gameState, "options") == FALSE)
       {
-         // do something else
          printf("options\n");
-         // options(&selected, &change, render, police, window);
+         // options(render, police, window);
       }
-      // pommeAdd();
-      // array 3 position
-      // position par defaut 0 = number
-      // move increase or decrease(if not 0) number
-      // when press enter and number = 0 jouer else if number = 1 options else if number = 2 quitter
-      // SDL_Delay(10);
-   };
-   TTF_CloseFont(police);
+      SDL_RenderPresent(game.render);
+      SDL_Delay(strcmp(game.gameState, "game") == FALSE ?  game.config.vitesse : 0);
+   }
+   TTF_CloseFont(game.police);
 }

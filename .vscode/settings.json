@@ -20,7 +20,9 @@
       "splashscreen.h": "c",
       "actions.h": "c",
       "game.h": "c",
-      "serpend.h": "c"
+      "serpend.h": "c",
+      "cmath": "c",
+      "typeinfo": "cpp"
    },
    "makefile.launchConfigurations": [
       {
@@ -28,5 +30,10 @@
          "binaryPath": "c:\\Users\\LMN\\Desktop\\brouillon dev\\snake\\snake",
          "binaryArgs": []
       }
-   ]
+   ],
+   "workbench.colorCustomizations": {
+      "activityBar.background": "#013145",
+      "titleBar.activeBackground": "#014560",
+      "titleBar.activeForeground": "#F2FBFF"
+   }
 }

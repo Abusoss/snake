@@ -17,10 +17,6 @@ enum gameConfig
     windowHeight = 820,
     hauteur = 18,
     largeur = 18,
-    taillePoliceSplash = 150,
-    taillePoliceMenu = 58,
-    marge = 20,
-    taillePoliceGame = (windowWidth-(windowWidth / marge))/largeur,
     goldenPommeChance = 20,
     goldenNumber = goldenPommeChance / 2,
     pommeNumber = 3,
@@ -43,13 +39,21 @@ enum options
     difficulteOption = 7,
     tailleOption = 8,
 };
-
 int windowFlag = SDL_WINDOW_ALLOW_HIGHDPI;
 int fonctionne = TRUE;
+float marge = 20.0;
+// int taillePoliceGame = (int)ceil((windowWidth - windowWidth * (marge / 100)) / largeur);
+int taillePoliceGame = (int)ceil(((windowWidth - windowWidth*(marge/100))/largeur));
+int taillePoliceSplash = 150;
+int taillePoliceMenu = 58;
 // 0x25A0
 // 0xE108
 // 0x2612
 Uint16 composants[7] = {0x0058, 0x0023, 0x0020, 0x25A1, 0x25A1, 0x25A0, 0x2612};
-char menuTitle[9][15] = {"1. Jouer", "2. Options", "3. Quitter", "4. Mode", "5. Vitesse", "6. Son", "7. Musique", "8. Difficulte", "9. Taille"};
+//
+int difficultyValue[3] = {125, 75, 20};
+const char *menuTitles[] = {"1. Jouer", "2. Options", "3. Quitter"};
+const char *continueMenuTitles[] = {"1. Continuer", "2. Recommencer", "3. Options", "4. Quitter"};
+const char *menuOptions[] = {"1. Mode", "2. Vitesse", "3. Son", "4. Musique", "5. Difficulte", "6. Taille"};
 // extern enum gameConfig;
 // extern enum options;

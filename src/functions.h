@@ -1,32 +1,58 @@
-void initialisation(SDL_Renderer *render)
+void initialisation(void)
 {
-   SDL_SetRenderDrawColor(render, 30, 30, 30, 255);
-   SDL_RenderClear(render);
+   SDL_SetRenderDrawColor(game.render, 30, 30, 30, 255);
+   SDL_RenderClear(game.render);
    printf("Map initialisation\n");
-   printf("hauteur : %zu\n", sizeof(game.map) / sizeof(game.map.colonne[0]));
-   printf("largeur: %zu\n", sizeof(game.map.colonne[0]) / sizeof(game.map.colonne[0].cellule[0]));
+   printf("hauteur : %d\n", hauteur);
+   printf("largeur: %d\n", largeur);
    game.selected = FALSE;
    game.currentPommes = pommeNumber;
-   game.score = 0;
-   game.previousDirection = 0;
+   game.playeur.score = 0;
+   strcpy_s(game.playeur.name, 100, "player 1");
+   game.previousGameDirection = 0;
    game.direction = 0;
-   game.currentOption = 0;
-   strcpy_s(game.gameState, 100, "menu");
-   game.config.vitesse = vitesse;
-   game.config.difficulte[difficulte - 1] = 1;
+   game.gameStart = FALSE;
+   game.config.difficulte = difficulte;
    game.config.mode[mode - 1] = 1;
    game.config.musique[musique - 1] = 1;
    game.config.taille[taille - 1] = 1;
-   constructMap();
+   game.choix = 0;
+   game.currentOption = 0;
+   game.subOption = jouer;
    List *serpent = creeList();
    game.serpent = serpent;
+   game.isChange = TRUE;
+   strcpy_s(game.gameState, 100, "menu");
+   if (game.bestPlayeur.score == NULL || game.bestPlayeur.score == 0)
+   {
+      printf("best score : %d\n", game.bestPlayeur.score);
+      lireScore();
+   }
+   constructMap();
+   addSerpend();
+   pommeAdd();
+}
+void restart(void)
+{
+   SDL_SetRenderDrawColor(game.render, 30, 30, 30, 255);
+   SDL_RenderClear(game.render);
+   printf("Map initialisation\n");
+   printf("hauteur : %d\n", hauteur);
+   printf("largeur: %d\n", largeur);
+   game.currentPommes = pommeNumber;
+   game.playeur.score = 0;
+   strcpy_s(game.playeur.name, 100, "player 1");
+   game.direction = 0;
+   *supprimerList(game.serpent);
+   List *serpent = creeList();
+   game.serpent = serpent;
+   constructMap();
+   addSerpend();
+   pommeAdd();
 }
 
-void constructMap()
+void constructMap(void)
 {
-
-   // TODO: ICI
-
    for (int c = 0; c < hauteur; c++)
    {
       game.map.colonne[c].cellule[0].pos.x = 0;
@@ -56,4 +82,3 @@ void constructMap()
       strcpy_s(game.map.colonne[hauteur - 1].cellule[l].type, 8, "m");
    }
 }
-
